@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const rd = p => readFileSync(join(root, p), 'utf8');
+const rd = p => readFileSync(join(root, p), 'utf8').replace(/\r\n/g, '\n'); // Windows-Checkout liefert CRLF
 const pkg = JSON.parse(rd('package.json'));
 
 // 1) Skripte zusammensetzen
