@@ -205,7 +205,7 @@ npm start       # startet die Desktop-App
 npm run dist    # baut Installer und portable EXE nach release/ (unter Windows)
 ```
 
-Ein neues Release entsteht automatisch, sobald ein Tag `v*` gepusht wird. GitHub Actions baut dann auf Windows den Installer, die portable EXE und die Web-Version und hängt sie an das Release (`.github/workflows/release.yml`).
+Ein neues Release entsteht automatisch: Sobald auf `main` eine Version in `package.json` steht, zu der es noch kein Release gibt, baut GitHub Actions auf Windows den Installer, die portable EXE und die Web-Version und legt das Release mit Tag `v<Version>` an (`.github/workflows/release.yml`). Für die nächste Version also `version` in `package.json` erhöhen und `docs/releases/v<Version>.md` anlegen.
 
 ## Projektaufbau
 
