@@ -1,0 +1,50 @@
+{
+  "name": "engine-simulator",
+  "productName": "Engine-Simulator",
+  "version": "1.0.0",
+  "description": "Realistischer Motor-Simulator: Kaltstart, Fehlersuche, Tuning, Fahren, 3D-Motor mit Strömung und physikalisch modelliertem Klang.",
+  "author": "Nirodo",
+  "license": "MIT",
+  "homepage": "https://github.com/Nirodo/Engine-Simulator",
+  "repository": { "type": "git", "url": "https://github.com/Nirodo/Engine-Simulator.git" },
+  "main": "desktop/main.js",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node tools/selftest.mjs",
+    "start": "node tools/build.mjs && electron .",
+    "dist": "node tools/build.mjs && electron-builder --win --x64 --publish never",
+    "dist:dir": "node tools/build.mjs && electron-builder --win --x64 --dir --publish never"
+  },
+  "devDependencies": {
+    "@fontsource/barlow-condensed": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@fontsource/ibm-plex-sans": "5.3.0",
+    "electron": "33.4.11",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "io.github.nirodo.enginesimulator",
+    "productName": "Engine-Simulator",
+    "copyright": "Copyright © 2026 Nirodo",
+    "directories": { "output": "release", "buildResources": "build" },
+    "files": ["desktop/**/*", "package.json"],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Engine-Simulator",
+      "artifactName": "Engine-Simulator-Setup-${version}.exe"
+    },
+    "portable": { "artifactName": "Engine-Simulator-${version}-portable.exe" }
+  }
+}
