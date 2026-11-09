@@ -45,9 +45,15 @@ jobs:
       - run: npm ci
       - run: npm test
       - name: Windows-Installer und portable EXE bauen
-        run: npm run dist
+        shell: bash
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: |
+          set -o pipefail
+          if ! npm run dist 2>&1 | tee build.log; then
+            tail -n 40 build.log | while IFS= read -r line; do echo "::error::${line//%/%25}"; done
+            exit 1
+          fi
       - name: Web-Version beilegen
         shell: bash
         run: cp dist/web/Engine-Simulator.html "release/Engine-Simulator-${{ needs.check.outputs.version }}-web.html"
